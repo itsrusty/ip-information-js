@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- pico.css -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <title>IP</title>
+</head>
+<body>
+    <main class="container">
+        <div class="content">
+            <h1>Conoce información de la ip que ingreses</h1>
+        </div>
+        <form id="form">
+            <label for="id">
+                Ip del usuario
+                <input type="text" placeholder="Ingresa la ip" id="ip">
+                <small>ejemplo: 182.182.36.128</small>
+            </label>
+            <button type="submit"z id="btn">Buscar</button>
+        </form>
+        <!-- show data -->
+        <div class="data">
+            <pre id="results">
+
+            </pre>
+        </div>
+    </main>
+    <footer>
+        <small>
+            By Hiram Gabriel
+        </small>
+    </footer>
+    <script>
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'f53c16deadmsh72e8db0a3ea3a62p14964ajsne614f159e279',
+                'X-RapidAPI-Host': 'ip-geo-location-find-ip-location-and-details.p.rapidapi.com'
+            }
+        };
+        
+        const API = "https://ip-geo-location-find-ip-location-and-details.p.rapidapi.com/iplocation?"
+        const IP = document.querySelector("#ip")
+        const button = document.querySelector("#btn")
+        const form = document.querySelector("#form")
+        const results = document.querySelector("#results")
+        
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+                if(IP.value == ""){
+                    return
+                }
+                        
+                fetch(`https://ip-geo-location-find-ip-location-and-details.p.rapidapi.com/iplocation?ip=${IP.value}`, options)
+                .then(response => response.json())
+                .then(response => results.innerHTML = `<br> ${JSON.stringify(response)}`)
+                    //error handling 
+                .catch(err => console.error(err));
+                
+        })
+    </script>
+</body>
+</html>
